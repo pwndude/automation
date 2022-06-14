@@ -1,34 +1,27 @@
 # use requests
 import requests as r
 
-# use shutil
-import shutil as sh
-
 # use ctypes
 import ctypes as c
 
-# use time as t
+# use time
 import time as t
 
 
-# # get a random background image from unsplash
-# response = r.get("https://source.unsplash.com/random/1920x1080")
+path = "C:\\Users\\Public\\Pictures\\Backgrounds\\background.jpg" # set the path to the background
 
-# # save the image to a file and move to C:/Users/Public/Pictures/Backgrounds/background.jpg
-# sh.copyfileobj(response.raw, open("C:/Users/Public/Pictures/Backgrounds/background.jpg", "wb"))
-
-# use ctypes to set the background
-
-# # repeat every 30 minutes
-# t.sleep(1800)
-
-response = r.get("https://source.unsplash.com/random/1920x1080") # get a random background image from unsplash
-
-# complete all actions every 30 minutes
-def loop_for_eternity(): 
-    while True: 
-        sh.copyfileobj(response.raw, open("C:/Users/Public/Pictures/Backgrounds/background.jpg", "wb")) # save the image to a file and move to C:/Users/Public/Pictures/Backgrounds/background.jpg
-        c.windll.user32.SystemParametersInfoW(20, 0, "C:/Users/Public/Pictures/Backgrounds/background.jpg", 0) # set the background
-        t.sleep(1800) # repeat every 30 minutes
+def chg_bkgrnd(): # function to change the background
+    i = True
+    while(i == True): # loop to change the background
+        # get a random background from unsplash.com using requests
+        resp = r.get("https://source.unsplash.com/random/1920x1080")
+        c.windll.user32.SystemParametersInfoW(
+            20, 0, path, 0)  # set the background using ctypes
+        file = open(path, 'wb') # use open to write the file to the path
+        file.write(resp.content) # use write to write the content of the response to the file
+        file.close() # close the file
+        t.sleep(1800)  # sleep for 5 seconds
+        
     
-loop_for_eternity() # start the loop
+# call the function
+chg_bkgrnd()
