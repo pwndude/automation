@@ -3,3 +3,4 @@
 # automation
 repo for desktop automations in various languages
 
+First file: automatic desktop background changer - t.sleep(<time in float>) sets iteration timing
